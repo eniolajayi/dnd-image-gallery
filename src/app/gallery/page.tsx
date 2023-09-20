@@ -27,12 +27,12 @@ async function Gallery() {
         </nav>
       </header>
       <main className="w-full">
-        <div className="w-full h-32 text-center flex flex-col items-center justify-center text-2xl">
+        <div className="w-full h-32 mb-8 text-center flex flex-col items-center justify-center text-2xl">
           <h1 className="uppercase font-medium">
             <span className=" text-amber-900">Louvre Museum</span>{" "}
             <span>at home</span>
           </h1>
-          <p className=" text-base">
+          <p className=" text-base w-[min(35ch,60%)]">
             You can drag and re-arrange each art piece give it a try! Hover each
             piece to read their tags i.e title
           </p>
