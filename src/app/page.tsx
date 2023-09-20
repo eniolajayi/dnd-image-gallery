@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SignInForm from "./sign-in";
+import SignInForm from "./login";
 
 export default function Home() {
   return (
