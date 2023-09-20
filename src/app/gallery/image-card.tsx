@@ -16,6 +16,7 @@ export default function ImageCard(props: ImageCardProps) {
         alt={props.alt}
         src={props.src}
         className="w-full h-full object-cover"
+        title={props.alt}
       />
     </figure>
   );
