@@ -31,7 +31,10 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
 
   useEffect(() => {
     if (data) {
-      const allItemId = data.map((_, idx) => idx);
+      const allItemId = data.map((_, idx) => {
+        const id = idx + 1;
+        return id;
+      });
       setGridData(data);
       setItems(allItemId);
     }
@@ -90,14 +93,15 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
             <ImageLoadingSkeleton />
           ) : (
             items.map((idx) => {
+              const art = gridData[idx - 1];
               return (
                 <SortableImageCard
-                  key={gridData[idx].contentId}
+                  key={art.contentId}
                   id={idx}
-                  src={gridData[idx].image}
-                  width={gridData[idx].width}
-                  height={gridData[idx].height}
-                  alt={gridData[idx].title}
+                  src={art.image}
+                  width={art.width}
+                  height={art.height}
+                  alt={art.title}
                 />
               );
             })
