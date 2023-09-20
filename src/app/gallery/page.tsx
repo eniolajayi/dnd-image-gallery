@@ -32,7 +32,7 @@ async function Gallery() {
             <span className=" text-amber-900">Louvre Museum</span>{" "}
             <span>at home</span>
           </h1>
-          <p className=" text-base w-[min(35ch,60%)]">
+          <p className=" text-base w-[min(35ch,100%-2rem)]">
             You can drag and re-arrange each art piece give it a try! Hover each
             piece to read their tags i.e title
           </p>
