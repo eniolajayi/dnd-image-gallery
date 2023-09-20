@@ -8,12 +8,14 @@ export default function Home() {
         <h1 className="text-4xl font-medium">Welcome to Budget Museum</h1>
       </div>
       <div className="">
-        <h2 className="text-xl text-slate-600 capitalize">Sign In to View Gallery</h2>
+        <h2 className="text-xl text-slate-600 capitalize">
+          Sign In to View Gallery
+        </h2>
       </div>
       <div>
-        <Button>
-          <a href="/api/auth/login">Login</a>
-        </Button>
+        <a className="underline text-semibold text-blue-600" href="/api/auth/login">
+          Login
+        </a>
       </div>
     </main>
   );
