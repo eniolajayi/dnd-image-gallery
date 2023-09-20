@@ -104,7 +104,7 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
           )}
         </div>
       </SortableContext>
-      <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
+      {/* <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay> */}
     </DndContext>
   );
 }
