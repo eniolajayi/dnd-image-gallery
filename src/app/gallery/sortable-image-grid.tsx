@@ -23,6 +23,7 @@ import { WikiArt } from "@/shared";
 import SortableImageCard from "./sortable-image-card";
 import { Item } from "./item";
 import ImageLoadingSkeleton from "@/components/image-loading-skeleton";
+import { createPortal } from "react-dom";
 
 export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -57,27 +58,23 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
     })
   );
 
-  function handleDragStart(event: DragStartEvent) {
-    const { active } = event;
+  function handleDragStart({ active }: DragStartEvent) {
+    if (!active) return;
     setActiveId(active.id.toString());
   }
 
   function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-    if (over === null) {
-      return;
-    }
-
-    if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id as number);
-        const newIndex = items.indexOf(over.id as number);
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-
     setActiveId(null);
+    const { active, over } = event;
+    if (over) {
+      if (active.id !== over.id) {
+        setItems((items) => {
+          const oldIndex = items.indexOf(active.id as number);
+          const newIndex = items.indexOf(over.id as number);
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+    }
   }
 
   return (
@@ -86,6 +83,7 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+      onDragCancel={() => setActiveId(null)}
     >
       <SortableContext items={items} strategy={rectSwappingStrategy}>
         <div className="flex flex-wrap gap-2 justify-center">
@@ -108,7 +106,6 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
           )}
         </div>
       </SortableContext>
-      {/* <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay> */}
     </DndContext>
   );
 }
