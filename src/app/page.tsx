@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <main className="w-full h-screen flex items-center gap-5 flex-col justify-center">
       <div>
-        <h1 className="text-4xl font-medium">Welcome to Budget Museum</h1>
+        <h1 className="text-4xl font-medium text-center">Welcome to Budget Museum</h1>
       </div>
 
       <div className="">
