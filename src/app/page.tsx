@@ -1,14 +1,19 @@
-import Image from "next/image";
-import SignInForm from "./login";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="w-full h-screen flex items-center gap-5 flex-col justify-center">
-      <div className="">
-        <h1 className="text-3xl">Sign In to Gallery</h1>
+      <div>
+        <h1 className="text-4xl font-medium">Welcome to Budget Museum</h1>
       </div>
-      <div >
-        <SignInForm />
+      <div className="">
+        <h2 className="text-xl text-slate-600 capitalize">Sign In to View Gallery</h2>
+      </div>
+      <div>
+        <Button>
+          <a href="/api/auth/login">Login</a>
+        </Button>
       </div>
     </main>
   );

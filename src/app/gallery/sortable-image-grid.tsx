@@ -19,9 +19,10 @@ import {
   rectSwappingStrategy,
 } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
-import { WikiArt} from "@/shared";
+import { WikiArt } from "@/shared";
 import SortableImageCard from "./sortable-image-card";
 import { Item } from "./item";
+import ImageLoadingSkeleton from "@/components/image-loading-skeleton";
 
 export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -30,12 +31,8 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
 
   useEffect(() => {
     if (data) {
-      const slicedData = data
-        .slice(0, 20)
-        .filter((e) => e.title !== "The School of Athens")
-        .filter((e) => e.title !== "Flowers");
-      const allItemId = slicedData.map((_, idx) => idx);
-      setGridData(slicedData);
+      const allItemId = data.map((_, idx) => idx);
+      setGridData(data);
       setItems(allItemId);
     }
   }, [data]);
@@ -88,8 +85,10 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
       onDragStart={handleDragStart}
     >
       <SortableContext items={items} strategy={rectSwappingStrategy}>
-        <div className="flex flex-wrap justify-center">
-          {gridData &&
+        <div className="flex flex-wrap gap-2 justify-center">
+          {gridData.length === 0 ? (
+            <ImageLoadingSkeleton />
+          ) : (
             items.map((idx) => {
               return (
                 <SortableImageCard
@@ -101,7 +100,8 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
                   alt={gridData[idx].title}
                 />
               );
-            })}
+            })
+          )}
         </div>
       </SortableContext>
       <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>

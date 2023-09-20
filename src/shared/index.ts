@@ -13,11 +13,16 @@ export interface WikiArt {
 export const WIKI_ART_URL =
   "https://www.wikiart.org/en/App/Painting/MostViewedPaintings?randomSeed=123&json=2&inPublicDomain=true!Blog";
 export async function getWikiArtData(): Promise<WikiArt[]> {
-  const res = await fetch(WIKI_ART_URL);
+  const res = await fetch(WIKI_ART_URL, { cache: "no-store" });
 
   if (!res.ok) {
     throw new Error("Failed to fetch Wiki Art data");
   }
+  const data = (await res.json()) as WikiArt[];
+  const reducedData = data
+    .slice(0, 22)
+    .filter((e) => e.title !== "The School of Athens")
+    .filter((e) => e.title !== "Flowers");
 
-  return res.json();
+  return reducedData;
 }
