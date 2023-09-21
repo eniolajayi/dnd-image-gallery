@@ -29,7 +29,7 @@ async function Gallery({searchParams}: PageProps) {
   return (
     <>
       <header>
-        <nav className="w-full flex flex-wrap items-center justify-end gap-6 pe-12 py-5">
+        <nav className="w-full flex flex-wrap items-center justify-center gap-6 px-2 md:pe-12 py-5">
           <SearchBar label="Filter art piece by their tags (i.e title)" />
           <a
             className="underline text-semibold text-blue-600"
