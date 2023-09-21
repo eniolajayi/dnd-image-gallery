@@ -33,8 +33,7 @@ async function Gallery() {
             <span>at home</span>
           </h1>
           <p className=" text-base w-[min(35ch,100%-2rem)]">
-            You can drag and re-arrange each art piece give it a try! Hover each
-            piece to read their tags i.e title
+            You can drag and re-arrange each art piece give it a try!
           </p>
         </div>
       </main>
