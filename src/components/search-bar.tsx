@@ -35,7 +35,7 @@ export default function SearchBar({ label }: SearchBarProps) {
         onChange={handleSearchInputChanges}
         className="transparent"
       />
-      <Button size={"icon"} className="absolute top-0 right-1 bg-transparent ">
+      <Button size={"icon"} variant={"primary"} className="absolute top-0 right-1">
         <Search className="w-4 h-4" />
       </Button>
     </form>
