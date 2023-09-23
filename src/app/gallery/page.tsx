@@ -20,12 +20,14 @@ async function Gallery({ searchParams }: PageProps) {
   }
 
   const data = await getWikiArtData();
-  let filteredData = data;
+  let filteredData: WikiArt[] = [];
   if (tags) {
     filteredData = data.filter((item) => {
       //@ts-ignore
       return item.title.toLowerCase().includes(tags.toLowerCase());
     });
+  } else {
+    filteredData = data;
   }
 
   return (
@@ -59,16 +61,18 @@ async function Gallery({ searchParams }: PageProps) {
             <div className="text-center mb-4">
               <Link
                 className="underline text-semibold text-blue-600"
-                href={"/gallery?tag="}
+                href={"/gallery"}
               >
                 Clear results
               </Link>
             </div>
           </div>
         ) : (
-         <Suspense fallback={<>Loading Images</>}>
-           <SortableImageGrid data={data.length === 0 ? data : filteredData} />
-         </Suspense>
+          <Suspense fallback={<>Loading Images</>}>
+            <SortableImageGrid
+              data={filteredData.length === 0 ? data : filteredData}
+            />
+          </Suspense>
         )}
       </div>
       <footer className="h-64 text-center p-5">

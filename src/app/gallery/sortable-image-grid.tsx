@@ -126,7 +126,7 @@ export default function SortableImageGrid({ data }: { data: WikiArt[] }) {
         <div className="text-center mb-4">
           <Link
             className="underline text-semibold text-blue-600"
-            href={"/gallery?tag="}
+            href={"/gallery"}//?tag=
           >
             Clear results
           </Link>
