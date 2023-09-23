@@ -1,9 +1,10 @@
-import { getWikiArtData } from "@/shared";
+import { WikiArt, getWikiArtData } from "@/shared";
 import SortableImageGrid from "./sortable-image-grid";
 import Link from "next/link";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { redirect, useSearchParams } from "next/navigation";
 import SearchBar from "@/components/search-bar";
+import { Suspense } from "react";
 
 type PageProps = {
   params: { slug: string };
@@ -12,13 +13,14 @@ type PageProps = {
 
 async function Gallery({ searchParams }: PageProps) {
   const session = await getSession();
+  const tags = searchParams.tags;
+
   if (!session) {
     redirect("/");
   }
 
   const data = await getWikiArtData();
   let filteredData = data;
-  const tags = searchParams.tags;
   if (tags) {
     filteredData = data.filter((item) => {
       //@ts-ignore
@@ -52,11 +54,21 @@ async function Gallery({ searchParams }: PageProps) {
       </main>
       <div className="container mb-12 mx-auto">
         {filteredData.length === 0 ? (
-          <p className="h-64 text-center p-5">
+          <div className="h-64 text-center p-5">
             <span>No Results Found</span>
-          </p>
+            <div className="text-center mb-4">
+              <Link
+                className="underline text-semibold text-blue-600"
+                href={"/gallery?tag="}
+              >
+                Clear results
+              </Link>
+            </div>
+          </div>
         ) : (
-          <SortableImageGrid data={filteredData} />
+         <Suspense fallback={<>Loading Images</>}>
+           <SortableImageGrid data={data.length === 0 ? data : filteredData} />
+         </Suspense>
         )}
       </div>
       <footer className="h-64 text-center p-5">
