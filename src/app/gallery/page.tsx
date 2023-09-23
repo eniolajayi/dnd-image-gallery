@@ -5,12 +5,12 @@ import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { redirect, useSearchParams } from "next/navigation";
 import SearchBar from "@/components/search-bar";
 
-type PageProps =  {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+type PageProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-async function Gallery({searchParams}: PageProps) {
+async function Gallery({ searchParams }: PageProps) {
   const session = await getSession();
   if (!session) {
     redirect("/");
@@ -19,13 +19,13 @@ async function Gallery({searchParams}: PageProps) {
   const data = await getWikiArtData();
   let filteredData = data;
   const tags = searchParams.tags;
-  if(tags){
-    filteredData = data.filter((item)=>{
+  if (tags) {
+    filteredData = data.filter((item) => {
       //@ts-ignore
       return item.title.toLowerCase().includes(tags.toLowerCase());
     });
   }
- 
+
   return (
     <>
       <header>
@@ -51,7 +51,13 @@ async function Gallery({searchParams}: PageProps) {
         </div>
       </main>
       <div className="container mb-12 mx-auto">
-        <SortableImageGrid data={filteredData} />
+        {filteredData.length === 0 ? (
+          <p className="h-64 text-center p-5">
+            <span>No Results Found</span>
+          </p>
+        ) : (
+          <SortableImageGrid data={filteredData} />
+        )}
       </div>
       <footer className="h-64 text-center p-5">
         <span>
